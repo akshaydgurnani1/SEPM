@@ -8,25 +8,24 @@ pipeline {
     stages {
         stage('Checkout') { // Fetch code from Git repository
             steps {
-                // Use 'checkout' instead of 'git' step for better cross-platform compatibility
-                checkout([$class: 'GitSCM', 
-                          branches: [[name: 'main']], 
-                          userRemoteConfigs: [[url: 'https://github.com/akshaydgurnani1/jenkins.git']]])
+                git branch: 'main', // Replace 'main' with your desired branch (master is also common)
+                   url: 'https://github.com/akshaydgurnani1/jenkins.git' // Replace with your Git repository URL
             }
         }
 
         stage('Build') { // Assuming Node.js project
             steps {
-                // Use NodeJS plugin to run npm commands
-                nodejs(nodeJSInstallationName: 'nodejs', configId: null) {
-                    sh 'npm build run'
+                script {
+                    sh 'npm install' // Install dependencies
                 }
             }
         }
 
-        stage('Deploy') { 
+        stage('Test') { // Run tests
             steps {
-                sh 'npm start'
+                script {
+                    sh 'npm test' // Run tests
+                }
             }
         }
 
