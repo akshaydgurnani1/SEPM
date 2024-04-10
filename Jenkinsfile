@@ -1,33 +1,26 @@
 pipeline {
     agent any
-
+    
     environment {
-        CI = 'true' // Set CI environment variable to true (optional)
+        NODEJS_HOME = tool 'nodejs' // This assumes you've configured NodeJS tool in Jenkins
     }
-
+    
     stages {
-        stage('Checkout') { // Fetch code from Git repository (optional)
+        stage('Test') {
             steps {
-                // Replace with your Git checkout command or use a Git plugin
-                git branch: 'main', // Replace 'main' with your desired branch (master is also common)
-                   url: 'https://github.com/your-username/your-repository.git' // Replace with your Git repository URL
+                // Install npm packages locally
+                sh "${NODEJS_HOME}/bin/npm install html-validator-cli"
+                // You can also specify specific versions or other packages here
             }
         }
-
-        stage('Build') { // Assuming Node.js project
+        stage('Deployment') {
             steps {
-                script { // Use script block for better portability
-                    bat 'start /b npm start' // Install dependencies in the background
+                script {
+                    // Enclose shell steps in curly braces
+                    sh 'sudo cp /akshaydgurnani1/SEPM'
+                    sh 'sudo systemctl restart nginx'
                 }
             }
-        }
-
-        // Add additional stages for tasks like linting, code coverage, testing, and deployment as needed
-    }
-
-    post { // Add post-build actions (optional)
-        always {
-            echo 'Pipeline execution finished.' // Example notification
         }
     }
 }
