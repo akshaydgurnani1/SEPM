@@ -6,25 +6,24 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') { // Add this stage to fetch code
+        stage('Checkout') { // Fetch code from Git repository
             steps {
-                // Replace with your Git checkout command or use a Git plugin
-                git branch: 'main', // Replace 'master' with your desired branch
+                git branch: 'main', // Replace 'main' with your desired branch (master is also common)
                    url: 'https://github.com/akshaydgurnani1/jenkins.git' // Replace with your Git repository URL
             }
         }
 
         stage('Build') { // Assuming Node.js project
             steps {
-                script { // Use script block for better portability (works with both Windows and Linux)
+                script {
                     sh 'npm install' // Install dependencies
                 }
             }
         }
 
-        stage('Test') {
+        stage('Test') { // Run tests
             steps {
-                script { // Use script block for portability
+                script {
                     sh 'npm test' // Run tests
                 }
             }
@@ -35,7 +34,6 @@ pipeline {
 
     post { // Add post-build actions (optional)
         always {
-            // Cleanup tasks, notifications, etc. here
             echo 'Pipeline execution finished.' // Example notification
         }
     }
