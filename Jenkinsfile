@@ -1,19 +1,22 @@
 pipeline {
     agent any
     
-  
-    
     stages {
         stage('Build') {
             steps {
                 // Run npm start command or any other build steps
-                bat 'start npm start'
+                bat 'npm start'
             }
         }
         
-        
+        stage('Test') {
+            steps {
+                // Run tests for your application
+                // Replace the following command with the actual command to run your tests
+                bat 'npm test'
+            }
+        }
         
         // Define additional stages here
     }
-    
 }
