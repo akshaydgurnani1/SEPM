@@ -17,13 +17,19 @@ pipeline {
 
         stage('Build') { // Assuming Node.js project
             steps {
-                bat 'npm install' // Install dependencies using Windows 'bat' command
+                // Use NodeJS plugin to run npm commands
+                nodejs(nodeJSInstallationName: 'nodejs', configId: null) {
+                    sh 'npm install'
+                }
             }
         }
 
         stage('Test') { // Run tests
             steps {
-                bat 'npm test' // Run tests using Windows 'bat' command
+                // Use NodeJS plugin to run npm commands
+                nodejs(nodeJSInstallationName: 'nodejs', configId: null) {
+                    sh 'npm test'
+                }
             }
         }
 
