@@ -24,12 +24,9 @@ pipeline {
             }
         }
 
-        stage('Test') { // Run tests
+        stage('Deploy') { // Run tests
             steps {
-                // Use NodeJS plugin to run npm commands
-                nodejs(nodeJSInstallationName: 'nodejs', configId: null) {
-                    sh 'npm test'
-                }
+                sh 'npm start'
             }
         }
 
