@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Run npm start command or any other build steps
-                sh 'npm start'
+                bat 'start npm start'
             }
         }
         
