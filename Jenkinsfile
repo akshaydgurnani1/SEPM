@@ -1,5 +1,8 @@
 pipeline {
     agent any
+       environment {
+        CI = 'true' // Set CI environment variable to true
+    }
     
     stages {
         stage('Build') {
