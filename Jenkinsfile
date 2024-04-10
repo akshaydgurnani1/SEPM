@@ -29,9 +29,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Add your deployment script here
-                    // For example, if deploying to a server via SSH:
-                    // bat 'ssh user@server "deploy-script.sh"'
+                    // SSH into the EC2 instance and transfer files
+                    sshagent(credentials: ['key-04a4e34b1068418ff']) {
+                        sh "scp -i ${SSH_KEY} -r ./path/to/your/built/files ${SSH_USER}@${EC2_INSTANCE}:/path/on/server"
+                    }
                 }
             }
         }
