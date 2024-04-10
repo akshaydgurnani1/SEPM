@@ -1,31 +1,28 @@
 pipeline {
     agent any
-    
+
     environment {
-        CI = 'true' // Set CI environment variable to true
+        CI = 'true' // Set CI environment variable to true (optional)
     }
 
     stages {
-        stage('Checkout') { // Fetch code from Git repository
+        stage('Checkout') { // Fetch code from Git repository (optional)
             steps {
+                // Replace with your Git checkout command or use a Git plugin
                 git branch: 'main', // Replace 'main' with your desired branch (master is also common)
-                   url: 'https://github.com/akshaydgurnani1/jenkins.git' // Replace with your Git repository URL
+                   url: 'https://github.com/your-username/your-repository.git' // Replace with your Git repository URL
             }
         }
 
         stage('Build') { // Assuming Node.js project
             steps {
-                bat 'npm install' // Use bat step for Windows
+                script { // Use script block for better portability
+                    bat 'start /b npm install' // Install dependencies in the background
+                }
             }
         }
 
-        stage('Test') { // Run tests
-            steps {
-                bat 'npm test' // Use bat step for Windows
-            }
-        }
-
-        // Add additional stages for tasks like linting, code coverage, and deployment as needed
+        // Add additional stages for tasks like linting, code coverage, testing, and deployment as needed
     }
 
     post { // Add post-build actions (optional)
