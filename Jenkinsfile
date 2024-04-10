@@ -15,17 +15,13 @@ pipeline {
 
         stage('Build') { // Assuming Node.js project
             steps {
-                script {
-                    sh 'npm install' // Install dependencies
-                }
+                bat 'npm install' // Use bat step for Windows
             }
         }
 
         stage('Test') { // Run tests
             steps {
-                script {
-                    sh 'npm test' // Run tests
-                }
+                bat 'npm test' // Use bat step for Windows
             }
         }
 
