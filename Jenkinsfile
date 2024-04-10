@@ -23,25 +23,7 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                script {
-                    // Add your deployment script here
-                    // For example, if deploying to a server via SSH:
-                    // bat 'ssh user@server "deploy-script.sh"'
-                }
-            }
-        }
-
-        stage('Test') {
-            steps {
-                script {
-                    // Add your testing script here
-                    // For example, if running tests with Jest:
-                    // bat 'npm test'
-                }
-            }
-        }
+        
     }
 
     post {
