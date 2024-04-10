@@ -31,8 +31,7 @@ pipeline {
                 script {
                     // SSH into the EC2 instance and transfer files
                     sshagent(credentials: ['key-04a4e34b1068418ff']) {
-                        sh "scp -i ${SSH_KEY} -r ./path/to/your/built/files ${SSH_USER}@${EC2_INSTANCE}:/path/on/server"
-                    }
+                    sh "scp -i ${SSH_KEY} -r ./SEPM ${SSH_USER}@${EC2_INSTANCE}:/home/akshaydgurnani                    }
                 }
             }
         }
