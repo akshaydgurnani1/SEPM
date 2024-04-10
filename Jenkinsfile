@@ -1,6 +1,6 @@
 pipeline {
     agent any
-
+    
     environment {
         CI = 'true' // Set CI environment variable to true
     }
@@ -8,24 +8,22 @@ pipeline {
     stages {
         stage('Checkout') { // Fetch code from Git repository
             steps {
-                git branch: 'main', // Replace 'main' with your desired branch (master is also common)
-                   url: 'https://github.com/akshaydgurnani1/jenkins.git' // Replace with your Git repository URL
+                // Use 'checkout' instead of 'git' step for better cross-platform compatibility
+                checkout([$class: 'GitSCM', 
+                          branches: [[name: 'main']], 
+                          userRemoteConfigs: [[url: 'https://github.com/akshaydgurnani1/jenkins.git']]])
             }
         }
 
         stage('Build') { // Assuming Node.js project
             steps {
-                script {
-                    sh 'npm install' // Install dependencies
-                }
+                bat 'npm install' // Install dependencies using Windows 'bat' command
             }
         }
 
         stage('Test') { // Run tests
             steps {
-                script {
-                    sh 'npm test' // Run tests
-                }
+                bat 'npm test' // Run tests using Windows 'bat' command
             }
         }
 
