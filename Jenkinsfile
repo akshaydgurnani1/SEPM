@@ -25,9 +25,4 @@ pipeline {
         // Define additional stages here
     }
     
-    post {
-        always {
-            // Clean up steps, notifications, etc.
-        }
-    }
 }
