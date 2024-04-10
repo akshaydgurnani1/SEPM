@@ -4,32 +4,50 @@ pipeline {
     environment {
         CI = 'true' // Set CI environment variable to true (optional)
         NODEJS_HOME = tool 'nodejs'
+        SSH_KEY = credentials('key-04a4e34b1068418ff') // Reference to Jenkins SSH credentials
+        EC2_INSTANCE = '18.212.60.212' // Replace with your EC2 instance IP or hostname
+        SSH_USER = 'akshaydgurnani' // Replace with your EC2 instance SSH user
     }
 
     stages {
-        stage('Checkout') { // Fetch code from Git repository (optional)
+        stage('Checkout') {
             steps {
-                // Replace with your Git checkout command or use a Git plugin
-                git branch: 'main', // Replace 'main' with your desired branch (master is also common)
-                   url: 'https://github.com/akshaydgurnani1/SEPM.git' // Replace with your Git repository URL
+                git branch: 'main',
+                   url: 'https://github.com/akshaydgurnani1/SEPM.git'
             }
         }
 
-        stage('Build') { // Assuming Node.js project
+        stage('Build') {
             steps {
-                script { // Use script block for better portability
-                    bat 'npm install' // Install dependencies
-                    bat 'npm run build' // Build the project
+                script {
+                    bat 'npm install'
+                    bat 'npm run build'
                 }
             }
         }
 
-        // Add additional stages for tasks like linting, code coverage, testing, and deployment as needed
+        stage('Deploy') {
+            steps {
+                script {
+                    // Add your deployment script here
+                    // For example, if deploying to a server via SSH:
+                    // bat 'ssh user@server "deploy-script.sh"'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    bat 'npm test'
+                }
+            }
+        }
     }
 
-    post { // Add post-build actions (optional)
+    post {
         always {
-            echo 'Pipeline execution finished.' // Example notification
+            echo 'Pipeline execution finished.'
         }
     }
 }
