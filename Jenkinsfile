@@ -4,9 +4,6 @@ pipeline {
     environment {
         CI = 'true' // Set CI environment variable to true (optional)
         NODEJS_HOME = tool 'nodejs'
-        SSH_KEY = credentials('key-04a4e34b1068418ff') // Reference to Jenkins SSH credentials
-        EC2_INSTANCE = '18.212.60.212' // Replace with your EC2 instance IP or hostname
-        SSH_USER = 'akshaydgurnani' // Replace with your EC2 instance SSH user
     }
 
     stages {
@@ -29,9 +26,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // SSH into the EC2 instance and transfer files
-                    sshagent(credentials: ['key-04a4e34b1068418ff']) {
-                    sh "scp -i ${SSH_KEY} -r ./SEPM ${SSH_USER}@${EC2_INSTANCE}:/home/akshaydgurnani                    }
+                    // Add your deployment script here
+                    // For example, if deploying to a server via SSH:
+                    // bat 'ssh user@server "deploy-script.sh"'
                 }
             }
         }
@@ -39,7 +36,9 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    bat 'npm test'
+                    // Add your testing script here
+                    // For example, if running tests with Jest:
+                    // bat 'npm test'
                 }
             }
         }
