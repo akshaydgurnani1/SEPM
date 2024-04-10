@@ -19,12 +19,12 @@ pipeline {
             steps {
                 // Use NodeJS plugin to run npm commands
                 nodejs(nodeJSInstallationName: 'nodejs', configId: null) {
-                    sh 'npm install'
+                    sh 'npm build run'
                 }
             }
         }
 
-        stage('Deploy') { // Run tests
+        stage('Deploy') { 
             steps {
                 sh 'npm start'
             }
