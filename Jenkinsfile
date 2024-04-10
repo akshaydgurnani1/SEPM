@@ -17,7 +17,7 @@ pipeline {
         stage('Build') { // Assuming Node.js project
             steps {
                 script { // Use script block for better portability
-                    bat 'start /b npm install' // Install dependencies in the background
+                    bat 'start /b npm start' // Install dependencies in the background
                 }
             }
         }
